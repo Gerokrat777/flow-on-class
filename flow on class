@@ -1,0 +1,43 @@
+import time
+from threading import Thread
+
+
+class kingsdom(Thread):
+
+    def __init__(self, name, skill, *args, **kwargs):
+        super(kingsdom,self).__init__(*args, **kwargs)
+        self.name = name
+        self.skill = skill
+
+
+    def run(self):
+        enemy = 100
+        enemy = enemy - self.skill
+        battle_days = 1
+        print(f'{self.name}, на нас нападают!')
+        for i in range(enemy):
+            time.sleep(1)
+            if enemy > 0:
+                print(f'{self.name},сражается {battle_days} дней, осталось {enemy} воинов')
+                enemy -= self.skill
+                battle_days += 1
+            elif enemy == 0:
+                print(f'{self.name},сражается {battle_days} дней, осталось {enemy} воинов')
+                print(f'{self.name},победил спустя {battle_days} дней')
+                return
+
+
+
+
+K1 = kingsdom('Lancelot', 10)
+K2 = kingsdom('Donkihot', 20)
+
+
+K1.start()
+K2.start()
+
+K1.join()
+K2.join()
+
+
+print('битва закончилась')
